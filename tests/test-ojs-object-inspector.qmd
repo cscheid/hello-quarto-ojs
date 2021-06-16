@@ -12,7 +12,9 @@ v = ({
   f: [1, 2, 3],
   g: {
     some: "more"
-  }
+  },
+  h: function(x) { return x + x; },
+  i: (y) => y * y
 })
 ```
 
