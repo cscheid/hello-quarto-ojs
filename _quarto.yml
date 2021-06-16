@@ -1,0 +1,24 @@
+project:
+  type: site
+
+site:
+  title: "Quarto Observable"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Features"
+        contents:
+          - module-tests/es6-module-import.qmd
+          - module-tests/module-import-2.qmd
+          - features/file-attachments.qmd
+          - features/observable-modules.qmd
+      - section: "Tests"
+        contents:
+          - tests/index.qmd
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+

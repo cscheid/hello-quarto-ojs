@@ -1,0 +1,10 @@
+---
+title: "SVG test 1"
+---
+
+```{observable}
+mySvg = {
+  debugger;
+  return svg``;
+}
+```

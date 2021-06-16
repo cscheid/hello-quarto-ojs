@@ -1,0 +1,16 @@
+---
+title: "Quarto Observable Test Index"
+---
+
+## SVG
+
+* [svg-test-1](svg-test-1.qmd).
+
+## OJS display tests
+
+* [OJS grammar node types](test-ojs-grammar-node-types.qmd)
+* [OJS object inspector](test-ojs-object-inspector.qmd)
+
+## Views
+
+* [test 1](test-ojs-viewof-1.qmd)

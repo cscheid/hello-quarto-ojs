@@ -1,0 +1,14 @@
+---
+title: "Module Import test"
+---
+
+We'll have to override the import statements here to do something special.
+
+```{observable}
+import { test } from "./test.js";
+```
+
+```{observable}
+test()
+```
+

@@ -1,0 +1,10 @@
+---
+title: "Default Module Import test"
+---
+
+Let's observe observable imports.
+
+```{observable}
+import { slider } from "@jashkenas/inputs"
+```
+

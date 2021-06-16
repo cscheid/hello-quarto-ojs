@@ -1,0 +1,6 @@
+---
+title: "Quarto Observable"
+format: html
+---
+
+You can write and run reactive Javascript inside Quarto.

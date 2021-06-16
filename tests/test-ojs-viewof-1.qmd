@@ -1,0 +1,21 @@
+---
+title: "Testing OHQ views"
+---
+
+```{observable}
+viewof x = html`<input type=range min=0 max=1 step=any>`
+```
+
+What happens here?
+
+```{observable}
+//| label: fig-2
+//| fig.cap: "Many viewofs"
+//| fig.subcap:
+//|   - "the first view"
+//|   - "the second view"
+//|   - "the third element"
+viewof x1 = html`<input type=range min=0 max=1 step=any>`
+viewof x2 = html`<input type=range min=0 max=1 step=any>`
+~~((x1 + x2) * 100)
+```

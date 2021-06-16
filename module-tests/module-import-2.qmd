@@ -1,0 +1,19 @@
+---
+title: "ES6 Recursive Imports"
+resources:
+  - test-2.js
+  - bar.js
+---
+
+We also support ES6 recursive imports, but for now you have to specify
+the javascript resources manually. See [test-2.js](test-2.js).
+
+```{observable}
+import { v1, v2 } from "./test-2.js";
+```
+
+```{observable}
+v1()
+v2()
+```
+
