@@ -9,6 +9,7 @@ site:
     contents:
       - section: "Features"
         contents:
+          - features/reactive-values.qmd
           - module-tests/es6-module-import.qmd
           - module-tests/module-import-2.qmd
           - features/file-attachments.qmd

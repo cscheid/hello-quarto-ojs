@@ -3,4 +3,68 @@ title: "Quarto Observable"
 format: html
 ---
 
-You can write and run reactive Javascript inside Quarto.
+When using HTML format output, Quarto allows you to create interactive
+pages. We use [ObservableHQ](https://observablehq.com)'s variant of
+Javascript, which includes "reactive" variables. This means that you
+can write and run Javascript inside Quarto cells, and it you can write
+and run Javascript inside Quarto, with additional support for 
+features which make building dashboards particularly easy.
+
+Here's a very minimal example:
+
+```{observable}
+//| output: false
+function clicked()
+{
+  alert("You pressed the button!");
+}
+```
+
+Then, we create a button:
+
+```{observable}
+button = {
+  let b = htl.html`<button onclick=${clicked}>Click me!</button>`;
+  return b;
+}
+```
+
+## Neat, but how does it work?
+
+In this snippet we are using a few features of Observable. 
+
+The first feature is that we can define HTML elements through blocks
+of code with the `name={...}` syntax. Assuming you're familiar with
+Javascript, it behaves almost as if you had written
+
+```js
+function button() {
+  ...
+  return b;
+}
+addToDocument(button());
+```
+
+where we are imagining an `addToDocument` function that would append the
+result of that function call to the document[^also-reactive].
+
+The second feature we're using is the `htl.html` "template". Observable
+allows you to quickly build elements by typing the content of an HTML
+element inside backticks, preceeded by the `htl.html` template
+specifier[^clicked-global].
+
+
+[^also-reactive]: In addition, "reactive values" in that code block
+    behave reactively, as you'll soon learn.
+
+[^clicked-global]: In this example, you might be tempted to write
+    `` htl.html`<button onclick=clicked>...</button>` ``.
+    
+    Unfortunately, that won't work, because function definitions in
+    observable are not injected into the global Javascript namespace, 
+    and the string "clicked" is not associated with the function we defined.
+    Instead, we wrap `clicked` around `${}` so that its _value_ is used, and name resolution 
+    happens correctly.
+    
+    In addition, if you're an observable veteran and wondering about 
+    the difference between `htl.html` and `html`, [check this out](https://github.com/observablehq/htl).
