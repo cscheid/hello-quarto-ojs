@@ -1,7 +1,5 @@
 ---
 title: "Observable Modules"
-resources:
-  - penguins.csv
 ---
 
 Of course, if you want to use the many existing observable modules

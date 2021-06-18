@@ -1,7 +1,5 @@
 ---
 title: "File Attachments"
-resources:
-  - penguins.csv
 ---
 
 File attachments work like they do in Observable. You include them as
@@ -10,6 +8,11 @@ with `FileAttachment`. Here we're using Allison Horst's excellent
 [palmer penguins dataset](penguins.csv)
 ([source](https://allisonhorst.github.io/palmerpenguins/)).
 
+Quarto tries to figure out which files you want to use as attachments
+by inspecting the source code for `FileAttachment(...)` literals. If
+you have arbitrary logic to decide on the filename to load, you will
+need to explicitly add those files as resources in your project's
+YAML frontmatter (or in some of its pages).
 
 ```{observable}
 data = FileAttachment("penguins.csv").csv()

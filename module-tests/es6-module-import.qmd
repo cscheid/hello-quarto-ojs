@@ -1,8 +1,5 @@
 ---
 title: "ES6 Module Imports"
-resources:
-  - test.js
-  - ../lib/module-1.js
 ---
 
 In addition to regular imports from observablehq notebooks, we also
@@ -14,16 +11,5 @@ import { test } from "./test.js";
 test()
 ```
 
-We also support root-relative imports. In this case, our runtime
-converts the import into a relative import with the right offset, so
-your project can be deployed deep into a web server file hierarchy:
-
-```{observable}
-import { f1 } from "/lib/module-1.js";
-f1()
-```
-
-## Known issues
-
-Currently, javascript module files have to be declared as resources in
-the YAML frontmatter.
+Quarto notices the `./test.js` being imported and automatically
+includes it as a resource to be added to the project build. 

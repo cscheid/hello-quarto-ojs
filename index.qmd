@@ -6,9 +6,8 @@ format: html
 When using HTML format output, Quarto allows you to create interactive
 pages. We use [ObservableHQ](https://observablehq.com)'s variant of
 Javascript, which includes "reactive" variables. This means that you
-can write and run Javascript inside Quarto cells, and it you can write
-and run Javascript inside Quarto, with additional support for 
-features which make building dashboards particularly easy.
+can write and run Javascript inside Quarto cells, with additional
+support for features which make building dashboards particularly easy.
 
 Here's a very minimal example:
 
@@ -24,38 +23,36 @@ Then, we create a button:
 
 ```{observable}
 button = {
-  let b = htl.html`<button onclick=${clicked}>Click me!</button>`;
-  return b;
+  return htl.html`<button onclick=${clicked}>Click me!</button>`;
 }
 ```
 
 ## Neat, but how does it work?
 
-In this snippet we are using a few features of Observable. 
-
-The first feature is that we can define HTML elements through blocks
-of code with the `name={...}` syntax. Assuming you're familiar with
-Javascript, it behaves almost as if you had written
+We are using two Observable features here. The first feature is that
+we can define HTML elements through blocks of code with the
+`name={...}` syntax. Assuming you're familiar with Javascript, it
+behaves almost as if you had written
 
 ```js
 function button() {
   ...
-  return b;
 }
 addToDocument(button());
 ```
 
 where we are imagining an `addToDocument` function that would append the
-result of that function call to the document[^also-reactive].
+result of that function call to the document.
 
 The second feature we're using is the `htl.html` "template". Observable
 allows you to quickly build elements by typing the content of an HTML
 element inside backticks, preceeded by the `htl.html` template
 specifier[^clicked-global].
 
-
-[^also-reactive]: In addition, "reactive values" in that code block
-    behave reactively, as you'll soon learn.
+This is only the beginning of what's possible with Observable and
+Quarto: see the "Features" section of the sidebar for a comprehensive
+introduction. In particular, Quarto Observable is "reactive" in the
+same way that Observable itself is.
 
 [^clicked-global]: In this example, you might be tempted to write
     `` htl.html`<button onclick=clicked>...</button>` ``.
@@ -66,5 +63,5 @@ specifier[^clicked-global].
     Instead, we wrap `clicked` around `${}` so that its _value_ is used, and name resolution 
     happens correctly.
     
-    In addition, if you're an observable veteran and wondering about 
+    In addition, if you're an ObservableHQ veteran and are wondering about 
     the difference between `htl.html` and `html`, [check this out](https://github.com/observablehq/htl).

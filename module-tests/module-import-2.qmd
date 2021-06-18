@@ -1,14 +1,12 @@
 ---
 title: "ES6 Recursive Imports"
-resources:
-  - test-2.js
-  - bar.js
 ---
 
-We also support ES6 recursive imports, but for now you have to specify
-the javascript resources manually. See [test-2.js](test-2.js).
+We also support ES6 recursive imports, and Quarto traverses the ES6 modules
+recursively to include them as resources in your project.
 
 ```{observable}
+// test-2.js itself imports a bar.js ES6 module.
 import { v1, v2 } from "./test-2.js";
 ```
 
