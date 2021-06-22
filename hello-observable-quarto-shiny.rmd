@@ -1,0 +1,136 @@
+---
+title: "Hello Observable, Quarto, Shiny"
+runtime: shinyrmd
+format: html
+---
+
+## Observable->R
+
+Here's a minimal demo of observable and R talking to each other inside quarto.
+
+### Observable side
+
+```{observable}
+viewof ojsSlider = slider({
+  min: 0, 
+  max: 40, 
+  step: 1, 
+  value: 30, 
+  title: "An observable slider",
+})
+```
+
+This following call registers the observable view for shiny, and (if it were working) vice-versa.
+
+```{observable}
+//| output: false
+shinyInput("ojsSlider")
+var1 = shinyOutput("var1")
+iris = shinyOutput("shinyIris")
+```
+
+From there, we can use `var1` and `iris` directly as observable reactive values.
+
+```{observable}
+function transpose(df)
+{
+  const result = [];
+  const l = Object.values(df)[0].length;
+  for (let i = 0; i < l; ++i) {
+    result.push(
+      Object.fromEntries(
+        Object.entries(df).map(([key, ar]) => [key, ar[i]])));
+  }
+  return result;
+}
+Plot.dot(
+  transpose(iris), 
+  {
+    x: "Sepal.Length", 
+    y: "Petal.Length", 
+    stroke: "Species"
+  }).plot()
+```
+
+### R side
+
+This is an output produced by Shiny in the R side.
+
+```{r}
+textOutput("ojsSlider", container = p)
+```
+
+
+## Improvements
+
+We could maybe do something like `//| shiny: true` to inspect all
+cells automatically, or even some yaml at the top-level to declare
+cross-language communication, say:
+
+```
+  observable_to_shiny:
+    - ojsSlider
+    - ...
+  shiny_to_observable:
+    - var1
+    - ...
+```
+
+
+## Joe's demo
+
+The rest of Joe's demo is here.
+
+```{r}
+p(class = "observablehq-inputs-button", id = "hello", "Hello")
+textOutput("clicks", container = p)
+```
+
+```{observable}
+viewof myslider = Inputs.range([0, 10], { step: 1 });
+var1.slice(0, myslider);
+```
+
+## Server code
+
+```{r, context="server"}
+
+output$ojsSlider <- renderText({
+  input$ojsSlider
+})
+
+observe({
+  message(input$var1)
+})
+
+output$shinyIris <- reactive(iris)
+
+clicks <- reactiveVal(0L)
+
+r_random <- eventReactive(clicks(), {
+  Sys.sleep(0.5)
+  runif(10)
+})
+
+observeEvent(input$hello, {
+  clicks(clicks() + 1L)
+})
+
+output$clicks <- renderText({
+  clicks()
+})
+
+output$insp <- reactive({
+  clicks()
+  list(runif(3), runif(3))
+})
+
+output$var1 <- r_random
+```
+
+
+## Imports, etc
+
+```{observable}
+import {slider} from '@jashkenas/inputs'
+```
