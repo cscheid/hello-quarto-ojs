@@ -20,7 +20,7 @@ viewof ojsSlider = slider({
 })
 ```
 
-This following call registers the observable view for shiny, and (if it were working) vice-versa.
+These following calls register Shiny inputs from Observable, and Shiny outputs to Observable.
 
 ```{observable}
 //| output: false
@@ -29,7 +29,13 @@ var1 = shinyOutput("var1")
 iris = shinyOutput("shinyIris")
 ```
 
-From there, we can use `var1` and `iris` directly as observable reactive values.
+**Shiny inputs**. This is an output produced by Shiny in the R side.
+
+```{r}
+textOutput("ojsSlider", container = p)
+```
+
+**Shiny outputs**. We can use `var1` and `iris` as observable reactive values.
 
 ```{observable}
 function transpose(df)
@@ -52,15 +58,6 @@ Plot.dot(
   }).plot()
 ```
 
-### R side
-
-This is an output produced by Shiny in the R side.
-
-```{r}
-textOutput("ojsSlider", container = p)
-```
-
-
 ## Improvements
 
 We could maybe do something like `//| shiny: true` to inspect all
@@ -76,6 +73,31 @@ cross-language communication, say:
     - ...
 ```
 
+There's actually a real reason to do this; the call to `shinyOutput`
+is slightly special in that ObservableJS variable bindings are not
+invariant under [beta reduction](https://en.wikipedia.org/wiki/Lambda_calculus).
+Specifically,
+
+```js
+x = shinyOutput("foo")
+f(x)
+```
+
+and
+
+```js
+f(shinyOutput("foo"))
+```
+
+are not equivalent, and the latter doesn't work as you'd expect.
+Concretely, ObservableJS takes function definitions which return
+generators and convert them to reactive values, but doesn't do that
+for function parameters.  This means `f(x)` sees a regular value bound
+to the first parameter, but `f(shinyOutput("foo"))` sees a generator
+object.
+
+As a result, it's slightly safer to hide the `v = shinyOutput()` call
+somewhere and only expose the `v` bindings.
 
 ## Joe's demo
 
