@@ -1,0 +1,21 @@
+---
+title: "Flash of Undefined Variables"
+format: html
+---
+
+Currently, we can sometimes show a brief flash of "undefined"
+variables during initialization.  That's not ideal.
+
+**2021-06-24 1:16PM MST**: I could swear I saw this happening before, but
+I can't reproduce it now. I tried multiple separate cells as well as a
+single one. Maybe it's specific to the way we do IPC?
+
+```{observable}
+x = y * z
+y = w * 30
+z = now % 1000
+w = {
+  await Promises.tick(5000);
+  return 0.5;
+}
+```
