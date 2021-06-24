@@ -1,0 +1,19 @@
+---
+title: "Define"
+format: html
+---
+
+This will (correctly) show a missing `x` variable,
+but we can test the `define` method by typing
+into the console:
+
+```js
+let change = window._ojs.ojsInABox.define("x")
+change(10);
+```
+
+At which point, the following expression should resolve to `50`.
+
+```{observable}
+x * 5
+```
