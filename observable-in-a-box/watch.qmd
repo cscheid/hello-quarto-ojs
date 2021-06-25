@@ -1,0 +1,22 @@
+---
+title: "Watch"
+format: html
+---
+
+When setting up Observable to work with other systems (in particular with FFIs),
+it's useful to "watch" a reactive value. Observable-in-a-box just gives you
+a `watch` method:
+
+```{observable}
+x = ~~(now / 1000)
+```
+
+To be notified when the values of `x` change, call `watch` and give it a callback:
+
+```js
+window._ojs.obsInABox.watch("x", (v, name) => console.log(`${name}'s value is now ${v}`));
+```
+
+TODO: Debounce `watch`.
+
+TODO: `unwatch`.
