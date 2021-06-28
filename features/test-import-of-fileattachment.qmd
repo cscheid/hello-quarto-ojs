@@ -1,0 +1,17 @@
+---
+title: "Test import of fileattachment"
+format: html
+---
+
+The `out` symbol from the imported notebook uses a remotely-resolved
+`FileAttachment`. This notebook tests whether our override of
+`FileAttachment` inside Quarto breaks the `FileAttachment` calls of
+imported modules. It doesn't appear to:
+
+```{observable}
+import { out } from "@cscheid/testing-module-level-fileattachments-being-exported"
+out / 5
+```
+
+On the _other_ hand, this notebook actually triggers the "flash of
+unevaluated observable" bug we were hoping to see.

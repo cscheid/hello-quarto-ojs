@@ -1,0 +1,12 @@
+---
+title: "Self-contained HTML"
+format:
+  html:
+    self-contained: true
+---
+
+## This is unsupported for now!!
+
+```{observable}
+x = now / 100
+```
