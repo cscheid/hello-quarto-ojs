@@ -13,5 +13,5 @@ import { out } from "@cscheid/testing-module-level-fileattachments-being-exporte
 out / 5
 ```
 
-On the _other_ hand, this notebook actually triggers the "flash of
-unevaluated observable" bug we were hoping to see.
+On the _other_ hand, this notebook actually triggered the "flash of
+unevaluated observable" bug we were hoping to see earlier. This is now fixed.
