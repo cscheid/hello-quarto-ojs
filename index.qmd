@@ -1,17 +1,18 @@
 ---
-title: "Quarto Observable"
+title: "Quarto OJS"
 format: html
 ---
 
 When using HTML format output, Quarto allows you to create interactive
-pages. We use [ObservableHQ](https://observablehq.com)'s variant of
-Javascript, which includes "reactive" variables. This means that you
-can write and run Javascript inside Quarto cells, with additional
-support for features which make building dashboards particularly easy.
+pages. We use [ObservableHQ](https://observablehq.com)'s runtime to
+provide a variant of Javascript, which includes "reactive"
+variables. This means that you can write and run Javascript inside
+Quarto cells, with additional support for features which make building
+dashboards particularly easy.
 
 Here's a very minimal example:
 
-```{observable}
+```{ojs}
 //| output: false
 function clicked()
 {
@@ -21,7 +22,7 @@ function clicked()
 
 Then, we create a button:
 
-```{observable}
+```{ojs}
 button = {
   return htl.html`<button onclick=${clicked}>Click me!</button>`;
 }
@@ -29,7 +30,7 @@ button = {
 
 ## Neat, but how does it work?
 
-We are using two Observable features here. The first feature is that
+We are using two OJS features here. The first feature is that
 we can define HTML elements through blocks of code with the
 `name={...}` syntax. Assuming you're familiar with Javascript, it
 behaves almost as if you had written
@@ -49,16 +50,15 @@ allows you to quickly build elements by typing the content of an HTML
 element inside backticks, preceeded by the `htl.html` template
 specifier[^clicked-global].
 
-This is only the beginning of what's possible with Observable and
+This is only the beginning of what's possible with OJS and
 Quarto: see the "Features" section of the sidebar for a comprehensive
-introduction. In particular, Quarto Observable is "reactive" in the
-same way that Observable itself is.
+introduction.
 
 [^clicked-global]: In this example, you might be tempted to write
     `` htl.html`<button onclick=clicked>...</button>` ``.
     
     Unfortunately, that won't work, because function definitions in
-    observable are not injected into the global Javascript namespace, 
+    OJS are not injected into the global Javascript namespace, 
     and the string "clicked" is not associated with the function we defined.
     Instead, we wrap `clicked` around `${}` so that its _value_ is used, and name resolution 
     happens correctly.

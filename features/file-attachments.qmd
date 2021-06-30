@@ -2,7 +2,7 @@
 title: "File Attachments"
 ---
 
-File attachments work like they do in Observable. You include them as
+File attachments work similarly to how they do in Observable. You include them as
 a resource in your quarto document or project, and then access them
 with `FileAttachment`. Here we're using Allison Horst's excellent
 [palmer penguins dataset](penguins.csv)
@@ -14,11 +14,11 @@ you have arbitrary logic to decide on the filename to load, you will
 need to explicitly add those files as resources in your project's
 YAML frontmatter (or in some of its pages).
 
-```{observable}
+```{ojs}
 data = FileAttachment("penguins.csv").csv()
 ```
 
-```{observable}
+```{ojs}
 avg = {
   let vs = data.map(s => s.bill_length_mm).filter(s => s !== "NA").map(Number);
   let n = 0;

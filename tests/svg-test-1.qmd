@@ -2,7 +2,7 @@
 title: "SVG test 1"
 ---
 
-```{observable}
+```{ojs}
 mySvg = {
   debugger;
   return svg``;

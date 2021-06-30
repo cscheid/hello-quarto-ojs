@@ -3,14 +3,15 @@ title: "Reactive Values"
 ---
 
 The fundamental difference between "plain Javascript" and Observable's
-version of Javascript is its native support for _reactivity_. 
+version of Javascript (here, "OJS") is its native support for
+_reactivity_.
 
 Imagine you wanted to create a simple visual time display shaped like
 an analog clock (or, looking ahead, imagine a JS dashboard that
 periodically updates itself). Whatever you end up showing ultimately will
 depend on the current time. 
 
-```{observable}
+```{ojs}
 //| output: false
 currentTime = function() {
   return Date.now();
@@ -30,7 +31,7 @@ But "now" is always changing, and so your plain Javascript code needs
 to have infrastructure to update the display constantly, otherwise
 that value is only computed once per call:
 
-```{observable}
+```{ojs}
 currentHours()
 currentMinutes()
 currentSeconds()
@@ -43,43 +44,30 @@ hand.
 
 ## Enter reactive values
 
-Observable lets you define "reactive" values: special values that can
+OJS lets you define "reactive" values: special values that can
 change, _and notify downstream code about the change_. So, we can write this instead:
 
-```{observable}
-// "now" is a predefined Observable reactive value that returns the current
+```{ojs}
+// "now" is a predefined reactive value that returns the current
 // value of Date.now()
 hours = (now / (3600 * 1000)) % 12
 minutes = (now / (60 * 1000)) % 60
 seconds = (now / 1000) % 60
 ```
 
-Now the values automatically update themselves. In observable, you can
+Now the values automatically update themselves. In OJS, you can
 write code that uses these as if they were regular Javascript
-values. Observable notices you're using reactive values, and turns
+values. OJS notices you're using reactive values, and turns
 your definition into a reactive value as well:
 
-```{observable}
+```{ojs}
 timeString = `${fmt(hours)}:${fmt(minutes)}:${fmt(seconds)}`
 ```
 
-But we wanted an analog clock. So let's make an analog clock! SVG to the rescue.
+But we wanted an analog clock. So let's make an analog clock, using
+SVG.
 
-```{observable}
-//| output: false
-function toClockAngle(v)
-{
-  // some math here because unlike polar coordinates, 
-  // clock hands run clockwise and start at the "north pole"
-  return -(-Math.PI / 2 + Math.PI * 2 * v) * (180 / Math.PI);
-}
-function clockHand(angle, color, width)
-{
-  return svg`<line transform="rotate(${angle})" x1=0 y1=0 x2=90 y2=0 stroke=${color} stroke-width=${width}></line>`
-}
-```
-
-```{observable}
+```{ojs}
 //| label: fig-1
 //| fig.cap: An SVG clock built with reactive values.[^1]
 clock = {
@@ -97,18 +85,27 @@ clock = {
 }
 ```
 
-Observable makes sure your SVG definition is also reactive, since it
-also uses reactive values. 
-
+OJS makes sure your SVG definition is also reactive, since it
+also uses reactive values.
 
 ## Extras
 
-```{observable}
+```{ojs}
 //| output: false
 function fmt(n)
 {
    let s = ("00" + String(~~n))
    return s.substr(s.length - 2);
+}
+function toClockAngle(v)
+{
+  // some math is needed here because unlike polar coordinates, 
+  // clock hands run clockwise and start at the "north pole"
+  return -(-Math.PI / 2 + Math.PI * 2 * v) * (180 / Math.PI);
+}
+function clockHand(angle, color, width)
+{
+  return svg`<line transform="rotate(${angle})" x1=0 y1=0 x2=90 y2=0 stroke=${color} stroke-width=${width}></line>`
 }
 ```
 

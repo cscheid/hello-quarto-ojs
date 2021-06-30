@@ -2,9 +2,9 @@
 title: "Default Module Import test"
 ---
 
-Let's observe observable imports.
+Let's observe ojs imports.
 
-```{observable}
+```{ojs}
 import { slider } from "@jashkenas/inputs"
 ```
 
