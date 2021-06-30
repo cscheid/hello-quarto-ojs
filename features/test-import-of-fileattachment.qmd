@@ -8,7 +8,7 @@ The `out` symbol from the imported notebook uses a remotely-resolved
 `FileAttachment` inside Quarto breaks the `FileAttachment` calls of
 imported modules. It doesn't appear to:
 
-```{observable}
+```{ojs}
 import { out } from "@cscheid/testing-module-level-fileattachments-being-exported"
 out / 5
 ```

@@ -7,6 +7,6 @@ format:
 
 ## This is unsupported for now!!
 
-```{observable}
+```{ojs}
 x = now / 100
 ```
