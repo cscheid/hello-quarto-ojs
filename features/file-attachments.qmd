@@ -27,3 +27,21 @@ avg = {
 }
 ```
 
+### Root-relative FileAttachments
+
+Quarto is careful to convert all local URL paths to "root-relative"
+paths, so that the entire Quarto project you build works, regardless
+of how deep in a web server path hierarchy you serve its content from.
+In other words, if your markdown includes an image URL
+`/imgs/asset-1.jpg`, Quarto will convert that URL to a relative
+one. In Quarto OJS, FileAttachments work the same way. For example,
+here we check that `penguins.csv` and `/features/penguins.csv` indeed
+seem to be the same file:
+
+```{ojs}
+data2 = FileAttachment("/features/penguins.csv").csv()
+{
+    let randomRow = (~~now) % data.length;
+    return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;
+}
+```
