@@ -1,0 +1,14 @@
+---
+title: "Self-contained quarto ojs"
+format:
+  html:
+    self-contained: true
+resources:
+  test.csv
+---
+
+Testing whether there's the self-contained HTML feature works in quarto ojs.
+
+```{ojs}
+x = now / 100
+```

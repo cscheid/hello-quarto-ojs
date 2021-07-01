@@ -1,0 +1,13 @@
+---
+title: "File Attachments"
+format:
+  html:
+    self-contained: true
+---
+
+Testing whether local file attachments are resolved correctly in quarto ojs.
+
+```{ojs}
+data = FileAttachment("test.csv").csv()
+result = data.map(row => Number(row.value))
+```
