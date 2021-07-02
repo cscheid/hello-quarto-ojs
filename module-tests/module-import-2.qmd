@@ -1,5 +1,7 @@
 ---
 title: "ES6 Recursive Imports"
+format: html
+self-contained: true
 ---
 
 We also support ES6 recursive imports, and Quarto traverses the ES6 modules
