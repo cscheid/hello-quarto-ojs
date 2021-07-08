@@ -1,0 +1,17 @@
+---
+title: "OJS module"
+---
+
+An import from a simple module:
+
+```{ojs}
+import { nowInSecs } from './test.ojs'
+nowInSecs
+```
+
+An import from a slightly more complicated module:
+
+```{ojs}
+import { out } from './test-2.ojs'
+out
+```

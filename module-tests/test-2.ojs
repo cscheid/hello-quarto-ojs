@@ -1,0 +1,3 @@
+import { v1 } from "./test-2.js";
+
+out = v1()
