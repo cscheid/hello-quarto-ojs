@@ -41,7 +41,7 @@ seem to be the same file:
 ```{ojs}
 data2 = FileAttachment("/features/penguins.csv").csv()
 {
-    let randomRow = (~~now) % data.length;
+    let randomRow = (now & 65535) % data.length;
     return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;
 }
 ```
