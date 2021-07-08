@@ -15,3 +15,9 @@ An import from a slightly more complicated module:
 import { out } from './test-2.ojs'
 out
 ```
+
+We now include a FileAttachment from a different directory to test resource resolution:
+
+```{ojs}
+data = FileAttachment("/features/penguins.csv")
+```
