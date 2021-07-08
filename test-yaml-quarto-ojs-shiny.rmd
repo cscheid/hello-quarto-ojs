@@ -1,0 +1,37 @@
+---
+title: "YAML Input/Output test"
+format: html
+code-tools: 
+  source: true
+  toggle: false
+server: 
+  type: shiny
+  ojs-exports: 
+    - viewof
+    - x
+  ojs-imports:
+    - xx
+    - yy
+---
+
+Here we're using our YAML declarations to control the OJS<->Shiny communication.
+
+## Observable
+
+```{ojs}
+x = now;
+viewof y = Inputs.range();
+`Look, we're using Shiny's 'xx' here! Its value is ${xx}`;
+`Look, we're using Shiny's 'yy' here! Its value is ${yy}`
+```
+
+## Shiny
+
+```{r, context="server"}
+output$xx <- renderText({
+  input$x / 100
+})
+output$yy <- renderText({
+  input$y * 100
+})
+```
