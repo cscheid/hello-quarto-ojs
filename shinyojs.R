@@ -16,6 +16,8 @@ exportOJS <- function(..., .session = shiny::getDefaultReactiveDomain()) {
     .session$output[[nm]] <- val
     outputOptions(.session$output, nm, suspendWhenHidden = FALSE)
     .session$sendCustomMessage("ojs-export", list(name = nm))
+    NULL
 
   }, quos, names(vars), vars, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  invisible()
 }
