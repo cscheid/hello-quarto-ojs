@@ -9,9 +9,6 @@ server:
   ojs-exports: 
     - viewof
     - x
-  ojs-imports:
-    - xx
-    - yy
 ---
 
 Here we're using our YAML declarations to control the OJS<->Shiny communication.
@@ -28,10 +25,10 @@ viewof y = Inputs.range();
 ## Shiny
 
 ```{r, context="server"}
-output$xx <- renderText({
+source("shinyojs.R")
+
+xx <- shiny::reactive({
   input$x / 100
 })
-output$yy <- renderText({
-  input$y * 100
-})
+exportOJS(xx, yy = reactive(input$y * 100))
 ```
