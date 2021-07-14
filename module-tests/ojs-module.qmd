@@ -16,8 +16,10 @@ import { out } from './test-2.ojs'
 out
 ```
 
-We now include a FileAttachment from a different directory to test resource resolution:
+Finally, we can import modules from other Quarto-OJS notebooks. In
+this case, we simply import the SVG clock we created [in the reactive values intro](../features/reactive-values.qmd):
 
 ```{ojs}
-data = FileAttachment("/features/penguins.csv")
+import { clock } from '../features/reactive-values.qmd';
+clock
 ```
