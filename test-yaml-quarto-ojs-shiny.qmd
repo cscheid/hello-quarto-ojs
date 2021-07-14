@@ -6,7 +6,7 @@ code-tools:
   toggle: false
 server: 
   type: shiny
-  ojs-exports: 
+  ojs-export: 
     - viewof
     - x
 ---
@@ -25,10 +25,8 @@ viewof y = Inputs.range();
 ## Shiny
 
 ```{r, context="server"}
-source("shinyojs.R")
-
 xx <- shiny::reactive({
   input$x / 100
 })
-exportOJS(xx, yy = reactive(input$y * 100))
+ojs_define(xx, yy = reactive(input$y * 100))
 ```

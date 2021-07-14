@@ -1,0 +1,45 @@
+---
+title: "Test ojs import with from Shiny"
+format: html
+code-tools: 
+  source: true
+  toggle: false
+server: 
+  type: shiny
+---
+
+```{ojs}
+viewof a = Inputs.range([0, 10], {step: 0.1, label: "alpha"});
+viewof b = Inputs.range([0, 10], {step: 0.1, label: "beta"});
+```
+
+```{ojs}
+import {chart as histogram} with {randomValues as data} from "@d3/histogram";
+histogram
+```
+
+## The jank
+
+Server code here. Note that because of initialization timing quirks (bugs?), the
+first call to `rbeta` has bad values for `a` and `b`, which means Shiny emits an error,
+and that error gets dumped in the DOM willy-nilly.
+
+```{r, context="server"}
+ojs_define(randomValues = reactive({
+  rbeta(1000, input$a, input$b)
+#  if (is.null(input$a) || is.null(input$b)) {
+#    list() # c() is NULL?
+#  } else {
+#    rbeta(1000, input$a, input$b)
+#  }
+}))
+```
+
+Note also the following initialization timing quirk (bug?) in the OJS side:
+
+```{ojs}
+//| output: false
+// quirk: we need randomValues to be defined before import statements
+// while ojs_define does it after evaluation. use case for "ojs-import"?
+randomValues = []
+```
