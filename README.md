@@ -1,1 +1,1 @@
-# Quarto Observable Demos
+# Quarto OJS Demos
