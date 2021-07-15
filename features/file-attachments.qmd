@@ -1,31 +1,47 @@
 ---
-title: "File Attachments"
+title: "Files and File Attachments"
 ---
+
+OJS provides you with a ton of flexibility and options for
+interactivity on the browser side.  But what if you want to interact
+with files in the file system? This is very common when you have some
+R or Python code that generates some data to be visualized.
+Quarto OJS provides `FileAttachment` objects, or simply "file attachments".
 
 File attachments work similarly to how they do in Observable. You include them as
 a resource in your quarto document or project, and then access them
 with `FileAttachment`. Here we're using Allison Horst's excellent
 [palmer penguins dataset](penguins.csv)
-([source](https://allisonhorst.github.io/palmerpenguins/)).
+([source](https://allisonhorst.github.io/palmerpenguins/)):
 
-Quarto tries to figure out which files you want to use as attachments
-by inspecting the source code for `FileAttachment(...)` literals. If
-you have arbitrary logic to decide on the filename to load, you will
-need to explicitly add those files as resources in your project's
-YAML frontmatter (or in some of its pages).
+```{r}
+# This R code is run by Quarto, just like it would in (say) Rmarkdown.
+library(palmerpenguins)
+write.csv(penguins, "penguins.csv")
+```
+
+We now can reference this file directly in a file attachment:
 
 ```{ojs}
 data = FileAttachment("penguins.csv").csv()
 ```
 
+Quarto tries to figure out which files you want to use as attachments
+by inspecting OJS source code for `FileAttachment(...)` literals. If
+you have arbitrary logic to decide on which filename to load, you will
+need to explicitly add those files as resources in your project's
+YAML frontmatter (or in some of its pages).
+
 ```{ojs}
 avg = {
-  let vs = data.map(s => s.bill_length_mm).filter(s => s !== "NA").map(Number);
+  const vs = data.map(s => s.bill_length_mm).filter(s => s !== "NA").map(Number);
   let n = 0;
   vs.forEach(v => n += v);
   return n / vs.length;
 }
 ```
+
+The average bill length of penguins in the dataset is ${fmt(avg)}mm.
 
 ### Root-relative FileAttachments
 
@@ -43,5 +59,15 @@ data2 = FileAttachment("/features/penguins.csv").csv()
 {
     let randomRow = (now & 65535) % data.length;
     return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;
+}
+```
+
+### Extras
+
+```{ojs}
+function fmt(n)
+{
+   let s = String(~~n);
+   return s.substr(s.length - 2);
 }
 ```

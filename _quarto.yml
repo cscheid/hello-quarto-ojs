@@ -7,15 +7,20 @@ site:
     style: "docked"
     search: true
     contents:
-      - section: "Features"
+      - section: "Main"
         contents:
-          - features/reactive-values.qmd
-          - features/file-attachments.qmd
-          - features/observable-modules.qmd
-          - section: "ES6"
+          - index.qmd
+          - section: Features
             contents:
-            - module-tests/es6-module-import.qmd
-            - module-tests/module-import-2.qmd
+              - features/javascript.qmd
+              - features/not-javascript.qmd
+              - features/reactive-values.qmd
+              - features/file-attachments.qmd
+              - features/observable-modules.qmd
+              - section: "ES6"
+                contents:
+                - module-tests/es6-module-import.qmd
+                - module-tests/module-import-2.qmd
       - section: "Tests"
         contents:
           - tests/index.qmd

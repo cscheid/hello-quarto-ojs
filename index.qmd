@@ -1,67 +1,59 @@
 ---
 title: "Quarto OJS"
-format: html
 ---
 
-When using HTML format output, Quarto allows you to create interactive
-pages. We use [ObservableHQ](https://observablehq.com)'s runtime to
-provide a variant of Javascript, which includes "reactive"
-variables. This means that you can write and run Javascript inside
-Quarto cells, with additional support for features which make building
-dashboards particularly easy.
-
-Here's a very minimal example:
+Quarto provides a number of format outputs, one of which is HTML. The
+HTML format uniquely supports **interactivity**: web browsers can show
+animations, respond to user input, and run user-defined code.
+Quarto leverages [ObservableHQ](https://observablehq.com)'s runtime 
+to support this kind of interactivity.
+At a glance, this enables document authors to write code in a variant
+of Javascript. We can use it to easily embed interactive visualizations in
+Quarto documents:
 
 ```{ojs}
+//| echo: false
 //| output: false
-function clicked()
-{
-  alert("You pressed the button!");
+graphJson = FileAttachment("/data/karate-club.json").json()
+graph = {
+  const nodeSet = new Set();
+  const nodes = [];
+  graphJson.edges.forEach(edge => {
+    if (!nodeSet.has(edge.source)) {
+      nodeSet.add(edge.source);
+      nodes.push({id: edge.source});
+    }
+    if (!nodeSet.has(edge.target)) {
+      nodeSet.add(edge.target);
+      nodes.push({id: edge.target});
+    }
+  });
+  return {
+    nodes,
+    links: graphJson.edges
+  };
 }
+myHeight = 400
+import { chart } with { graph as data, myHeight as height } from "@d3/force-directed-graph";
 ```
-
-Then, we create a button:
 
 ```{ojs}
-button = {
-  return htl.html`<button onclick=${clicked}>Click me!</button>`;
-}
+//| echo: false
+//| label: fig-karate-club
+//| fig.cap: <a href="https://en.wikipedia.org/wiki/Zachary%27s_karate_club">Zachary's Karate club network</a>, visualized with d3's force-directed layout
+chart
 ```
 
-## Neat, but how does it work?
+**FIXME: all of these are going to be links to examples in this project**.
 
-We are using two OJS features here. The first feature is that
-we can define HTML elements through blocks of code with the
-`name={...}` syntax. Assuming you're familiar with Javascript, it
-behaves almost as if you had written
+Quarto-OJS is built to make it easy for document authors to create a
+range of documents, from interactive expository pieces to dashboards.
 
-```js
-function button() {
-  ...
-}
-addToDocument(button());
-```
-
-where we are imagining an `addToDocument` function that would append the
-result of that function call to the document.
-
-The second feature we're using is the `htl.html` "template". Observable
-allows you to quickly build elements by typing the content of an HTML
-element inside backticks, preceeded by the `htl.html` template
-specifier[^clicked-global].
-
-This is only the beginning of what's possible with OJS and
-Quarto: see the "Features" section of the sidebar for a comprehensive
-introduction.
-
-[^clicked-global]: In this example, you might be tempted to write
-    `` htl.html`<button onclick=clicked>...</button>` ``.
-    
-    Unfortunately, that won't work, because function definitions in
-    OJS are not injected into the global Javascript namespace, 
-    and the string "clicked" is not associated with the function we defined.
-    Instead, we wrap `clicked` around `${}` so that its _value_ is used, and name resolution 
-    happens correctly.
-    
-    In addition, if you're an ObservableHQ veteran and are wondering about 
-    the difference between `htl.html` and `html`, [check this out](https://github.com/observablehq/htl).
+Your documents can use Python or R for data processing, and then use a
+number of Javascript libraries (such as d3 or vega-lite) to present
+the final output. You can write your own custom Javascript, or you can
+directly import from existing reactive notebook, either in your Quarto
+project or from ObservableHQ. If you're using R specifically, you can
+use Quarto to build and run Shiny servers, and Shiny interop is a
+breeze: Shiny reactives work directly as inputs to OJS cells (and OJS
+views work as Shiny inputs).

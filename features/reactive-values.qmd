@@ -9,7 +9,8 @@ _reactivity_.
 Imagine you wanted to create a simple visual time display shaped like
 an analog clock (or, looking ahead, imagine a JS dashboard that
 periodically updates itself). Whatever you end up showing ultimately will
-depend on the current time. 
+depend on the current time. So you start writing functions which compute
+the present time:
 
 ```{ojs}
 //| output: false
@@ -17,7 +18,7 @@ currentTime = function() {
   return Date.now();
 }
 currentHours = function() {
-  return (Date.now() / (3600 * 1000)) % 12
+  return (Date.now() / (3600 * 1000)) % 12;
 }
 currentMinutes = function() {
   return (Date.now() / (60 * 1000)) % 60;
@@ -27,32 +28,53 @@ currentSeconds = function() {
 }
 ```
 
-But "now" is always changing, and so your plain Javascript code needs
-to have infrastructure to update the display constantly, otherwise
-that value is only computed once per call:
+But `Date.now()` is always changing, and so your plain Javascript code needs
+infrastructure to update the display constantly, otherwise that value
+is only computed once per call:
 
 ```{ojs}
-currentHours()
-currentMinutes()
-currentSeconds()
+staticTime = { 
+  return { hours: currentHours(), minutes: currentMinutes(), seconds: currentSeconds() };
+}
+htl.html`<tt>${fmt(currentHours())}:${fmt(currentMinutes())}:${fmt(currentSeconds())}</tt>`
 ```
 
-Eventually will have to do something like set up a periodic call to
-update your code every time you want to redraw, as well as manage
-state dependencies manually, and so on. Things can get quickly out of
-hand.
+"This is fine," you say. After all, we have Javascript:
+
+```{ojs}
+ttEl = {
+  return document.createElement("tt");
+}
+```
+```{ojs}
+//| output: false
+function updateEl() {
+  ttEl.innerText = `${fmt(currentHours())}:${fmt(currentMinutes())}:${fmt(currentSeconds())}`;
+  window.requestAnimationFrame(updateEl);
+}
+updateEl()
+```
+
+But what if your data only updates once a minute? What if you _don't
+know_ how often your data updates?  Eventually code like this becomes
+a delicate dance of signals and event handlers.  Things can get
+quickly out of hand.
 
 ## Enter reactive values
 
-OJS lets you define "reactive" values: special values that can
+OJS, on the other hand, lets you define "reactive" values: special values that can
 change, _and notify downstream code about the change_. So, we can write this instead:
 
 ```{ojs}
 // "now" is a predefined reactive value that returns the current
 // value of Date.now()
-hours = (now / (3600 * 1000)) % 12
-minutes = (now / (60 * 1000)) % 60
-seconds = (now / 1000) % 60
+reactiveTime = {
+  const hours = (now / (3600 * 1000)) % 12;
+  const minutes = (now / (60 * 1000)) % 60;
+  const seconds = (now / 1000) % 60;
+  
+  return { hours, minutes, seconds };
+}
 ```
 
 Now the values automatically update themselves. In OJS, you can
@@ -61,7 +83,7 @@ values. OJS notices you're using reactive values, and turns
 your definition into a reactive value as well:
 
 ```{ojs}
-timeString = `${fmt(hours)}:${fmt(minutes)}:${fmt(seconds)}`
+timeString = htl.html`<tt>${fmt(reactiveTime.hours)}:${fmt(reactiveTime.minutes)}:${fmt(reactiveTime.seconds)}</tt>`
 ```
 
 But we wanted an analog clock. So let's make an analog clock, using
@@ -71,11 +93,13 @@ SVG.
 //| label: fig-1
 //| fig.cap: An SVG clock built with reactive values.[^1]
 clock = {
-   let result = svg`<svg width=200 height=200></svg>`;
-   let hourAngle = toClockAngle(hours / 12);
-   let minuteAngle = toClockAngle(minutes / 60);
-   let secondAngle = toClockAngle(seconds / 60);
-   let main = svg`<g transform="translate(100, 100) scale(1, -1)"></g>`;
+   const { hours, minutes, seconds } = reactiveTime;
+   const result = svg`<svg width=200 height=200></svg>`;
+   const hourAngle = toClockAngle(hours / 12);
+   const minuteAngle = toClockAngle(minutes / 60);
+   const secondAngle = toClockAngle(seconds / 60);
+   const main = svg`<g transform="translate(100, 100) scale(1, -1)"></g>`;
+   
    result.appendChild(main);
    main.appendChild(svg`<circle r=95 fill="#eee"></circle>`);
    main.appendChild(clockHand(secondAngle, "red", 1));
@@ -94,7 +118,7 @@ also uses reactive values.
 //| output: false
 function fmt(n)
 {
-   let s = ("00" + String(~~n))
+   const s = ("00" + String(~~n));
    return s.substr(s.length - 2);
 }
 function toClockAngle(v)

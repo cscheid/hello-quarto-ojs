@@ -1,0 +1,46 @@
+---
+title: "Quarto + OJS"
+---
+
+In our simplest [Javascript example](javascript.qmd), we told you a
+small lie.  The code we execute is *not quite* Javascript.  Here's a
+different way to write the same example:
+
+```{ojs}
+//| output: false
+function clicked()
+{
+    alert("You clicked the button!")
+}
+```
+
+```{ojs}
+button = {
+  let result = document.createElement("button");
+  result.innerText = "Click me!";
+  result.onclick = clicked;
+  return result;
+}
+```
+
+You will notice right away that we're using a slightly different syntax here to define the `button` object. This is because what the Observable runtime provides is not *really* Javascript, but [a slight variant with some extensions](https://observablehq.com/@observablehq/observables-not-javascript). For now, it is sufficient for you to know that at the top level, `a = ...` is a *declaration*, not an assignment, and that declarations can be defined using Javascript blocks. The value of `a` is the return value of the block, exactly as if the block were used as the definition of a function.
+
+## Fancy literals
+
+There is also, for example, a more convenient way to create HTML elements:
+
+```{ojs}
+htl.html`<button onlick=${clicked}>Click me!</button>`
+```
+
+This is much more succinct than the previous way we wrote it. Here, we're using Observable's [hypertext literals](https://observablehq.com/@observablehq/htl), which allow you to build HTML elements using a familiar syntax that borrows from Javascript's [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+
+## ... and the big reveal
+
+That is all nice enough, but right now you'd be justified in thinking this is all a distinction without a difference. Consider this teaser, however:
+
+```{ojs}
+(new Date(now)).toJSON()
+```
+
+How is that string value updating itself automatically!? It's time for you to learn the main feature of Observable's runtime: [reactive values](reactive-values.qmd).
