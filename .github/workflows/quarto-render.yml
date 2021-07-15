@@ -9,6 +9,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: "Install R Packages: Cache packages"
+      uses: actions/cache@v1
+      with:
+        path: ${{ env.RENV_PATHS_ROOT }}
+        key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-renv-
+    - name: "Install R Packages: Restore packages"
+      shell: Rscript {0}
+      run: |
+        if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+        renv::restore()
+
     - name: "Install Quarto and render project"
       uses: pommevilla/quarto-render@v0.2.0-alpha
 
