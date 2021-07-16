@@ -33,7 +33,8 @@ vl
 ).render()
 ```
 
-You can also import directly from a live ObservableHQ notebook:
+You can also import directly from a live ObservableHQ notebook. Let's
+try a simple example using sliders:
 
 ```{ojs}
 //| output: false
@@ -49,12 +50,10 @@ viewof hue = slider({min: 0, max: 360, title: "Hue"})
 viewof chroma = slider({min: 0, max: 100, title: "Chroma"})
 viewof luminance = slider({min: 0, max: 100, title: "Luminance"})
 color = {
-    let s = DOM.svg(width, 30);
-    d3.select(s)
-      .append("rect")
-      .attr("width", width)
-      .attr("height", 30)
-      .attr("fill", d3.hcl(hue, chroma, luminance));
-    return s;
+  const fill = d3.hcl(hue, chroma, luminance);
+  const r = htl.svg`<rect width="${width}" height="30" fill="${fill}"/>`;
+  const s = DOM.svg(width, 30);
+  s.appendChild(r);
+  return s;
 }
 ```
