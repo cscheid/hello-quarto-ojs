@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Quarto Observable – OJS Modules</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../site_libs/quarto-nav/headroom.min.js"></script>
+  <meta name="quarto:offset" content="../">
+  <script src="../site_libs/quarto-search/autocomplete.min.js"></script>
+  <script src="../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../site_libs/quarto-html/quarto.js"></script>
+  <script src="../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../site_libs/quarto-html/clipboard.min.js"></script>
+  <script src="../site_libs/quarto-html/anchor.min.js"></script>
+  <script src="../site_libs/quarto-html/quarto-html.js"></script>
+  <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script type="module" src="../site_libs/quarto-ojs/ojs-bundle.js"></script>
+  <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+<header id="quarto-header" class="headroom fixed-top">
+<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">OJS Modules</h1>
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav>
+</header>
+ <!-- /navbar/sidebar -->
+<div class="container-fluid quarto-container d-flex flex-column page-layout-article">
+<div class="row flex-fill" id="quarto-content">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="me-lg-auto py-2 docked  overflow-scroll">
+  <div class="px-3 pt-lg-2 mt-1 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">
+      Quarto Observable
+      </a>
+    </div>
+  </div>
+    <div class="d-flex px-3 mt-2 flex-shrink-0 align-items-center">
+      <div class="sidebar-search">
+      <form class="d-flex mb-0">
+  <input id="quarto-search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+      </div>
+    </div>
+  <div class="sidebar-menu-container"> 
+  <ul class="list-unstyled mt-3 px-3">
+      <ul class="list-unstyled sidebar-section depth1">
+    <li class="">
+        <div class="me-auto ">
+            <a class="sidebar-section-item d-inline-flex text-start w-100 " data-bs-toggle="collapse" data-bs-target="#main-collapse" aria-expanded="true">
+              <div class="me-auto  sidebar-section-item">Main</div>
+            <div><i class="bi bi-chevron-right ms-2 "></i></div>
+            </a>
+        </div>
+      <div class="collapse  show" id="main-collapse">
+        <ul class="list-unstyled sidebar-item-contents">
+          <li class="sidebar-item">
+  <a href="../index.html" class="">Quarto OJS</a>
+</li>
+          <ul class="list-unstyled sidebar-section depth2">
+    <li class="">
+        <div class="me-auto ">
+            <a class="sidebar-section-item d-inline-flex text-start w-100 " data-bs-toggle="collapse" data-bs-target="#features-collapse" aria-expanded="true">
+              <div class="me-auto  sidebar-item">Features</div>
+            <div><i class="bi bi-chevron-right ms-2 "></i></div>
+            </a>
+        </div>
+      <div class="collapse  show" id="features-collapse">
+        <ul class="list-unstyled sidebar-item-contents">
+          <li class="sidebar-item">
+  <a href="../features/javascript.html" class="">Quarto + Javascript</a>
+</li>
+          <li class="sidebar-item">
+  <a href="../features/not-javascript.html" class="">Quarto + OJS</a>
+</li>
+          <li class="sidebar-item">
+  <a href="../features/reactive-values.html" class="">Reactive Values</a>
+</li>
+          <li class="sidebar-item">
+  <a href="../features/file-attachments.html" class="">Files and File Attachments</a>
+</li>
+          <li class="sidebar-item">
+  <a href="../features/observable-modules.html" class="active">OJS Modules</a>
+</li>
+          <ul class="list-unstyled sidebar-section depth3">
+    <li class="">
+        <div class="me-auto ">
+            <a class="sidebar-section-item d-inline-flex text-start w-100 collapsed" data-bs-toggle="collapse" data-bs-target="#es6-collapse" aria-expanded="false">
+              <div class="me-auto  sidebar-item">ES6</div>
+            <div><i class="bi bi-chevron-right ms-2 "></i></div>
+            </a>
+        </div>
+      <div class="collapse  " id="es6-collapse">
+        <ul class="list-unstyled sidebar-item-contents">
+          <li class="sidebar-item">
+  <a href="../module-tests/es6-module-import.html" class="">ES6 Module Imports</a>
+</li>
+          <li class="sidebar-item">
+  <a href="../module-tests/module-import-2.html" class="">ES6 Recursive Imports</a>
+</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+        </ul>
+      </div>
+    </li>
+  </ul>
+        </ul>
+      </div>
+    </li>
+  </ul>
+      <ul class="list-unstyled sidebar-section depth1">
+    <li class="">
+        <div class="me-auto ">
+            <a class="sidebar-section-item d-inline-flex text-start w-100 " data-bs-toggle="collapse" data-bs-target="#tests-collapse" aria-expanded="true">
+              <div class="me-auto  sidebar-section-item">Tests</div>
+            <div><i class="bi bi-chevron-right ms-2 "></i></div>
+            </a>
+        </div>
+      <div class="collapse  show" id="tests-collapse">
+        <ul class="list-unstyled sidebar-item-contents">
+          <li class="sidebar-item">
+  <a href="../tests/index.html" class="">Quarto Observable Test Index</a>
+</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+  </ul>
+  </div>
+</nav>
+  </div>
+  <div id="quarto-toc-sidebar" class="col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 px-lg-4">
+<main>
+<header id="title-block-header">
+<div class="quarto-title-block d-none d-lg-block"><h1 class="title d-none d-lg-block">OJS Modules</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div>
+</header>
+<p>If you want to use the many existing observable modules that are present in the ecosystem, you can do so in the same way as you would in ObservableHQ. This way, Quarto users can contribute to the ObservableHQ ecosystem and vice-versa.</p>
+<p>This example comes from Sean Lopp’s excellent <a href="https://observablehq.com/@slopp/observable-for-r-users">“Observable for R Users” notebook</a>.</p>
+<p>You can use their <code>require</code> syntax:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vg <span class="op">=</span> <span class="pp">require</span>(<span class="st">'vega-lite'</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"penguins.csv"</span>)<span class="op">.</span><span class="fu">csv</span>()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-1">
+
+</div>
+</div>
+</div>
+<div class="cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-2">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vl</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">markPoint</span>()                           <span class="co">// the first two lines are akin to ggplot(data = penguins) + geom_point</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">data</span>(penguins)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">encode</span>(                               <span class="co">// encode is like aes</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">x</span>()<span class="op">.</span><span class="fu">fieldQ</span>(<span class="st">'body_mass_g'</span>)         <span class="co">// aes(x = body_mass_g)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span><span class="fu">scale</span>({<span class="dt">domain</span><span class="op">:</span> [<span class="dv">2000</span><span class="op">,</span> <span class="dv">6500</span>]}) <span class="co">// modify scale attributes, similar to scale_x_axis</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span><span class="fu">axis</span>({<span class="dt">title</span><span class="op">:</span> <span class="st">"Mass (g)"</span>})<span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">fieldQ</span>(<span class="st">'bill_length_mm'</span>)     </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span><span class="fu">scale</span>({<span class="dt">domain</span><span class="op">:</span> [<span class="dv">30</span><span class="op">,</span> <span class="dv">60</span>]})<span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">color</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">'species'</span>)<span class="op">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">tooltip</span>([<span class="st">'species'</span><span class="op">,</span> <span class="st">'sex'</span><span class="op">,</span> <span class="st">'year'</span><span class="op">,</span> <span class="st">'island'</span>])  <span class="co">// tooltips for free!</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)<span class="op">.</span><span class="fu">render</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="ojs-cell-2">
+
+</div>
+</div>
+</div>
+<p>You can also import directly from a live ObservableHQ notebook. Let’s try a simple example using sliders:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {slider} <span class="im">from</span> <span class="st">"@jashkenas/inputs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display hidden">
+<div id="ojs-cell-3">
+
+</div>
+</div>
+</div>
+<p>Here, we’re also using <a href="https://quarto.org/docs/authoring/figures-and-layout.html#complex-layouts">Quarto’s custom layouts</a>, which help when building dashboards.</p>
+<div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>viewof hue <span class="op">=</span> <span class="fu">slider</span>({<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">360</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">"Hue"</span>})</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>viewof chroma <span class="op">=</span> <span class="fu">slider</span>({<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">"Chroma"</span>})</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>viewof luminance <span class="op">=</span> <span class="fu">slider</span>({<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">"Luminance"</span>})</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>color <span class="op">=</span> {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fill <span class="op">=</span> d3<span class="op">.</span><span class="fu">hcl</span>(hue<span class="op">,</span> chroma<span class="op">,</span> luminance)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> htl<span class="op">.</span><span class="fu">svg</span><span class="vs">`&lt;rect width="</span><span class="sc">${</span>width<span class="sc">}</span><span class="vs">" height="30" fill="</span><span class="sc">${</span>fill<span class="sc">}</span><span class="vs">"/&gt;`</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> s <span class="op">=</span> DOM<span class="op">.</span><span class="fu">svg</span>(width<span class="op">,</span> <span class="dv">30</span>)<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  s<span class="op">.</span><span class="fu">appendChild</span>(r)<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> s<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 30.0%;justify-content: center;">
+<div>
+<div id="ojs-cell-4-1">
+
+</div>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 30.0%;justify-content: center;">
+<div>
+<div id="ojs-cell-4-2">
+
+</div>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 30.0%;justify-content: center;">
+<div>
+<div id="ojs-cell-4-3">
+
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div>
+<div id="ojs-cell-4-4">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- -->
+<div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title anchored" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "OJS Modules"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>If you want to use the many existing observable modules</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>that are present in the ecosystem, you can do so in the same way</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>as you would in ObservableHQ. This way, Quarto users can contribute</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>to the ObservableHQ ecosystem and vice-versa.</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>This example comes from Sean Lopp's excellent ["Observable for R</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>Users" notebook](https://observablehq.com/@slopp/observable-for-r-users).</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>You can use their <span class="in">`require`</span> syntax:</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="in">//| output: false</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">vg = require('vega-lite');</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="in">penguins = FileAttachment("penguins.csv").csv();</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="in">vl</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">  .markPoint()                           // the first two lines are akin to ggplot(data = penguins) + geom_point</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="in">  .data(penguins)</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="in">  .encode(                               // encode is like aes</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="in">    vl.x().fieldQ('body_mass_g')         // aes(x = body_mass_g)</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="in">          .scale({domain: [2000, 6500]}) // modify scale attributes, similar to scale_x_axis</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="in">          .axis({title: "Mass (g)"}),</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="in">    vl.y().fieldQ('bill_length_mm')     </span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">          .scale({domain: [30, 60]}),</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="in">    vl.color().fieldN('species'),</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="in">    vl.tooltip(['species', 'sex', 'year', 'island'])  // tooltips for free!</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="in">).render()</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>You can also import directly from a live ObservableHQ notebook. Let's</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>try a simple example using sliders:</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="in">//| output: false</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="in">import {slider} from "@jashkenas/inputs"</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>Here, we're also using <span class="co">[</span><span class="ot">Quarto's custom layouts</span><span class="co">](https://quarto.org/docs/authoring/figures-and-layout.html#complex-layouts)</span>,</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>which help when building dashboards.</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="in">//| layout: "[[30, -5, 30, -5, 30], [100]]"</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="in">viewof hue = slider({min: 0, max: 360, title: "Hue"})</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="in">viewof chroma = slider({min: 0, max: 100, title: "Chroma"})</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="in">viewof luminance = slider({min: 0, max: 100, title: "Luminance"})</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="in">color = {</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="in">  const fill = d3.hcl(hue, chroma, luminance);</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="in">  const r = htl.svg`&lt;rect width="${width}" height="30" fill="${fill}"/&gt;`;</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="in">  const s = DOM.svg(width, 30);</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="in">  s.appendChild(r);</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="in">  return s;</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+<!-- -->
+</main>
+<div class="page-navigation page-navigation-docked">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
+<script type="ojs-module-contents">
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"vg = require('vega-lite');\npenguins = FileAttachment(\"penguins.csv\").csv();"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"vl\n  .markPoint()                           // the first two lines are akin to ggplot(data = penguins) + geom_point\n  .data(penguins)\n  .encode(                               // encode is like aes\n    vl.x().fieldQ('body_mass_g')         // aes(x = body_mass_g)\n          .scale({domain: [2000, 6500]}) // modify scale attributes, similar to scale_x_axis\n          .axis({title: \"Mass (g)\"}),\n    vl.y().fieldQ('bill_length_mm')     \n          .scale({domain: [30, 60]}),\n    vl.color().fieldN('species'),\n    vl.tooltip(['species', 'sex', 'year', 'island'])  // tooltips for free!\n).render()"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"import {slider} from \"@jashkenas/inputs\""},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"viewof hue = slider({min: 0, max: 360, title: \"Hue\"})\nviewof chroma = slider({min: 0, max: 100, title: \"Chroma\"})\nviewof luminance = slider({min: 0, max: 100, title: \"Luminance\"})\ncolor = {\n  const fill = d3.hcl(hue, chroma, luminance);\n  const r = htl.svg`<rect width=\"${width}\" height=\"30\" fill=\"${fill}\"/>`;\n  const s = DOM.svg(width, 30);\n  s.appendChild(r);\n  return s;\n}"},{"methodName":"interpretQuiet","source":"shinyInput('hue')"},{"methodName":"interpretQuiet","source":"shinyInput('chroma')"},{"methodName":"interpretQuiet","source":"shinyInput('luminance')"}]}
+</script>
+<script type="module">
+window._ojs.paths.runtimeToDoc = "../../features";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+
+
+</body></html>
