@@ -14,7 +14,7 @@ Quarto documents:
 ```{ojs}
 //| echo: false
 //| output: false
-graphJson = FileAttachment("/data/karate-club.json").json()
+graphJson = FileAttachment("./data/karate-club.json").json()
 graph = {
   const nodeSet = new Set();
   const nodes = [];
