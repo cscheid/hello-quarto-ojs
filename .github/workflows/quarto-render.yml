@@ -30,7 +30,7 @@ jobs:
         renv::restore()
 
     - name: "Install Latest Quarto and render project"
-      uses: cscheid/quarto-render
+      uses: cscheid/quarto-render@HEAD
 
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
