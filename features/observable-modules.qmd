@@ -57,3 +57,8 @@ color = {
   return s;
 }
 ```
+
+## Reusable code: OJS vs htmlwidgets
+
+One of the unique features of Observable's module system is the ease
+with which notebooks can be reused and remixed. 

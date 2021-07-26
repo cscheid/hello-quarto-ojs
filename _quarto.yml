@@ -15,15 +15,10 @@ site:
               - features/javascript.qmd
               - features/not-javascript.qmd
               - features/reactive-values.qmd
+              - features/sending-values-to-ojs.qmd
               - features/file-attachments.qmd
               - features/observable-modules.qmd
-              - section: "ES6"
-                contents:
-                - module-tests/es6-module-import.qmd
-                - module-tests/module-import-2.qmd
-      - section: "Tests"
-        contents:
-          - tests/index.qmd
+              - features/dot.qmd
 format:
   html:
     theme: cosmo

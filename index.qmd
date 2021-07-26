@@ -43,9 +43,6 @@ import { chart } with { graph as data, myHeight as height } from "@d3/force-dire
 //| fig.cap: <a href="https://en.wikipedia.org/wiki/Zachary%27s_karate_club">Zachary's Karate club network</a>, visualized with d3's force-directed layout
 chart
 ```
-
-**FIXME: all of these are going to be links to examples in this project**.
-
 Quarto-OJS is built to make it easy for document authors to create a
 range of documents, from interactive expository pieces to dashboards.
 
@@ -57,3 +54,14 @@ project or from ObservableHQ. If you're using R specifically, you can
 use Quarto to build and run Shiny servers, and Shiny interop is a
 breeze: Shiny reactives work directly as inputs to OJS cells (and OJS
 views work as Shiny inputs).
+
+## Getting started with Quarto OJS
+
+* [Using Javascript](features/javascript.qmd)
+* [Using OJS](features/not-javascript.qmd)
+* [Reactive values](features/reactive-values.qmd)
+* Communicating between R, Python, and OJS
+  * [Sending values](features/sending-values-to-ojs.qmd)
+  * [Using files](features/file-attachments.qmd)
+
+

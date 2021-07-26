@@ -20,19 +20,11 @@ library(palmerpenguins)
 write.csv(penguins, "penguins.csv")
 ```
 
-We now can reference this file directly in a file attachment:
+We now can reference this file directly in [file attachments](https://observablehq.com/@observablehq/file-attachments).
 
 ```{ojs}
+//| output: false
 data = FileAttachment("penguins.csv").csv()
-```
-
-Quarto tries to figure out which files you want to use as attachments
-by inspecting OJS source code for `FileAttachment(...)` literals. If
-you have arbitrary logic to decide on which filename to load, you will
-need to explicitly add those files as resources in your project's
-YAML frontmatter (or in some of its pages).
-
-```{ojs}
 avg = {
   const vs = data.map(s => s.bill_length_mm).filter(s => s !== "NA").map(Number);
   let n = 0;
@@ -43,7 +35,30 @@ avg = {
 
 The average bill length of penguins in the dataset is ${fmt(avg)}mm.
 
-### Root-relative FileAttachments
+### Which files are included?
+
+When you render a Quarto document, Quarto inspects OJS chunks and
+tries to figure out which files the document intends to use as
+attachment to automatically include them in the build (typically in
+the `_site` directory). It does so by inspecting OJS source code,
+looking for `FileAttachment(...)` calls with string literals as parameters. 
+
+This works well in simple cases, but more complex code might have
+arbitrary logic to decide on which filename to load. In that case, it
+will be necessary to explicitly add those files as resources in the
+YAML frontmatter (either for the project itself or some of its
+pages). Here's an example:
+
+```
+title: "This is the title of some page with attachments"
+resources:
+  - penguins.csv
+  - data/*.csv
+```
+
+(FIXME: Apparently [file attachments only work with string literals anyway!](https://observablehq.com/@observablehq/file-attachments))
+
+### How are paths resolved?
 
 Quarto is careful to convert all local URL paths to "root-relative"
 paths, so that the entire Quarto project you build works, regardless
@@ -52,7 +67,8 @@ In other words, if your markdown includes an image URL
 `/imgs/asset-1.jpg`, Quarto will convert that URL to a relative
 one. In Quarto OJS, FileAttachments work the same way. For example,
 here we check that `penguins.csv` and `/features/penguins.csv` indeed
-seem to be the same file:
+seem to be the same file, by looking at random rows of the file and
+verifying that they have the same bill lengths:
 
 ```{ojs}
 data2 = FileAttachment("/features/penguins.csv").csv()
@@ -62,9 +78,10 @@ data2 = FileAttachment("/features/penguins.csv").csv()
 }
 ```
 
-### Extras
 
 ```{ojs}
+//| echo: false
+//| output: false
 function fmt(n)
 {
    let s = String(~~n);

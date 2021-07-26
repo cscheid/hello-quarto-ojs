@@ -1,0 +1,25 @@
+---
+title: "Graphviz support"
+---
+
+You can use Observable's `dot` template literal:
+
+```{ojs}
+dot`digraph { a -> b; }`
+```
+
+It's also possible to use a slightly terser syntax with the `dot` chunk language:
+
+```{dot}
+digraph { a -> b; }
+```
+
+Testing yaml-style metadata inside `dot` chunks:
+
+```{dot}
+//| echo: false
+digraph { 
+  no -> source; 
+  source -> here; 
+}
+```
