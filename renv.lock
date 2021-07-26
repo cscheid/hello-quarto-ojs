@@ -9,6 +9,25 @@
     ]
   },
   "Packages": {
+    "Matrix": {
+      "Package": "Matrix",
+      "Version": "1.3-3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "df57c82e79600601287edfdcef92c2d6"
+    },
+    "Rcpp": {
+      "Package": "Rcpp",
+      "Version": "1.0.7.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "Rcpp",
+      "RemoteUsername": "RcppCore",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "95668a7d2de7c9718b762e019952f9c37408cc43",
+      "Hash": "da6aef8a29cc4913a2e6de049f340d9c"
+    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
@@ -36,6 +55,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "6efd734b14c6471cfe443345f3e35e29"
+    },
+    "here": {
+      "Package": "here",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "24b224366f9c2e7534d2344d10d59211"
     },
     "highr": {
       "Package": "highr",
@@ -65,6 +91,13 @@
       "Repository": "CRAN",
       "Hash": "0bc1b5da1b0eb07cd4b727e95e9ff0b8"
     },
+    "lattice": {
+      "Package": "lattice",
+      "Version": "0.20-44",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f36bf1a849d9106dc2af72e501f9de41"
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.1",
@@ -93,6 +126,20 @@
       "Repository": "CRAN",
       "Hash": "9a455031890b2adf20e19784a114ddd4"
     },
+    "png": {
+      "Package": "png",
+      "Version": "0.1-7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "03b7076c234cb3331288919983326c55"
+    },
+    "rappdirs": {
+      "Package": "rappdirs",
+      "Version": "0.3.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5e3c5dc0b071b21fa128676560dbe94d"
+    },
     "renv": {
       "Package": "renv",
       "Version": "0.13.2-102",
@@ -104,6 +151,18 @@
       "RemoteRef": "HEAD",
       "RemoteSha": "f1dde0e9f898992f8d8effdc83fd4538a0da1390",
       "Hash": "aebafc3c5ae0bb33c5259096259c9eb1"
+    },
+    "reticulate": {
+      "Package": "reticulate",
+      "Version": "1.20-9002",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "reticulate",
+      "RemoteUsername": "rstudio",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "9c851feb33455cb961354620e09b8bfef2786bd2",
+      "Hash": "c3c45d924faeadb35e0de7f8827c6bbe"
     },
     "rlang": {
       "Package": "rlang",
@@ -123,6 +182,13 @@
       "RemoteRef": "HEAD",
       "RemoteSha": "2700baf4c39229ef49bff48d841d8be5c7e54e15",
       "Hash": "85f1cdac58b72cefe225f6ca2ab4ade5"
+    },
+    "rprojroot": {
+      "Package": "rprojroot",
+      "Version": "2.0.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "249d8cd1e74a8f6a26194a91b47f21d1"
     },
     "stringi": {
       "Package": "stringi",
@@ -144,6 +210,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "db9a6f2cf147751322d22c9f6647c7bd"
+    },
+    "withr": {
+      "Package": "withr",
+      "Version": "2.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ad03909b44677f930fa156d47d7a3aeb"
     },
     "xfun": {
       "Package": "xfun",
