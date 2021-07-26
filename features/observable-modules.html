@@ -166,52 +166,21 @@
   <a href="../features/reactive-values.html" class="">Reactive Values</a>
 </li>
           <li class="sidebar-item">
+  <a href="../features/sending-values-to-ojs.html" class="">`ojs_define`: Sending values to OJS</a>
+</li>
+          <li class="sidebar-item">
   <a href="../features/file-attachments.html" class="">Files and File Attachments</a>
 </li>
           <li class="sidebar-item">
   <a href="../features/observable-modules.html" class="active">OJS Modules</a>
 </li>
-          <ul class="list-unstyled sidebar-section depth3">
-    <li class="">
-        <div class="me-auto ">
-            <a class="sidebar-section-item d-inline-flex text-start w-100 collapsed" data-bs-toggle="collapse" data-bs-target="#es6-collapse" aria-expanded="false">
-              <div class="me-auto  sidebar-item">ES6</div>
-            <div><i class="bi bi-chevron-right ms-2 "></i></div>
-            </a>
-        </div>
-      <div class="collapse  " id="es6-collapse">
-        <ul class="list-unstyled sidebar-item-contents">
           <li class="sidebar-item">
-  <a href="../module-tests/es6-module-import.html" class="">ES6 Module Imports</a>
-</li>
-          <li class="sidebar-item">
-  <a href="../module-tests/module-import-2.html" class="">ES6 Recursive Imports</a>
+  <a href="../features/dot.html" class="">Graphviz support</a>
 </li>
         </ul>
       </div>
     </li>
   </ul>
-        </ul>
-      </div>
-    </li>
-  </ul>
-        </ul>
-      </div>
-    </li>
-  </ul>
-      <ul class="list-unstyled sidebar-section depth1">
-    <li class="">
-        <div class="me-auto ">
-            <a class="sidebar-section-item d-inline-flex text-start w-100 " data-bs-toggle="collapse" data-bs-target="#tests-collapse" aria-expanded="true">
-              <div class="me-auto  sidebar-section-item">Tests</div>
-            <div><i class="bi bi-chevron-right ms-2 "></i></div>
-            </a>
-        </div>
-      <div class="collapse  show" id="tests-collapse">
-        <ul class="list-unstyled sidebar-item-contents">
-          <li class="sidebar-item">
-  <a href="../tests/index.html" class="">Quarto Observable Test Index</a>
-</li>
         </ul>
       </div>
     </li>
@@ -220,12 +189,18 @@
   </div>
 </nav>
   </div>
-  <div id="quarto-toc-sidebar" class="col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"></div>
+  <div id="quarto-toc-sidebar" class="col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#reusable-code-ojs-vs-htmlwidgets" class="nav-link active" data-scroll-target="#reusable-code-ojs-vs-htmlwidgets">Reusable code: OJS vs htmlwidgets</a></li>
+</ul>
+</nav></div>
   <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 px-lg-4">
 <main>
 <header id="title-block-header">
-<div class="quarto-title-block d-none d-lg-block"><h1 class="title d-none d-lg-block">OJS Modules</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div>
+<div class="quarto-title-block d-none d-lg-block"><div><h1 class="title d-none d-lg-block">OJS Modules</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </header>
+
 <p>If you want to use the many existing observable modules that are present in the ecosystem, you can do so in the same way as you would in ObservableHQ. This way, Quarto users can contribute to the ObservableHQ ecosystem and vice-versa.</p>
 <p>This example comes from Sean Lopp’s excellent <a href="https://observablehq.com/@slopp/observable-for-r-users">“Observable for R Users” notebook</a>.</p>
 <p>You can use their <code>require</code> syntax:</p>
@@ -328,6 +303,9 @@
 </div>
 </div>
 </div>
+<section id="reusable-code-ojs-vs-htmlwidgets" class="level2">
+<h2 class="anchored" data-anchor-id="reusable-code-ojs-vs-htmlwidgets">Reusable code: OJS vs htmlwidgets</h2>
+<p>One of the unique features of Observable’s module system is the ease with which notebooks can be reused and remixed.</p>
 <!-- -->
 <div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title anchored" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -389,9 +367,15 @@
 <span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="in">  return s;</span></span>
 <span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
 <span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reusable code: OJS vs htmlwidgets</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>One of the unique features of Observable's module system is the ease</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>with which notebooks can be reused and remixed. </span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 <!-- -->
+</section>
 </main>
 <div class="page-navigation page-navigation-docked">
   <div class="nav-page nav-page-previous">

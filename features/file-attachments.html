@@ -166,52 +166,21 @@
   <a href="../features/reactive-values.html" class="">Reactive Values</a>
 </li>
           <li class="sidebar-item">
+  <a href="../features/sending-values-to-ojs.html" class="">`ojs_define`: Sending values to OJS</a>
+</li>
+          <li class="sidebar-item">
   <a href="../features/file-attachments.html" class="active">Files and File Attachments</a>
 </li>
           <li class="sidebar-item">
   <a href="../features/observable-modules.html" class="">OJS Modules</a>
 </li>
-          <ul class="list-unstyled sidebar-section depth3">
-    <li class="">
-        <div class="me-auto ">
-            <a class="sidebar-section-item d-inline-flex text-start w-100 collapsed" data-bs-toggle="collapse" data-bs-target="#es6-collapse" aria-expanded="false">
-              <div class="me-auto  sidebar-item">ES6</div>
-            <div><i class="bi bi-chevron-right ms-2 "></i></div>
-            </a>
-        </div>
-      <div class="collapse  " id="es6-collapse">
-        <ul class="list-unstyled sidebar-item-contents">
           <li class="sidebar-item">
-  <a href="../module-tests/es6-module-import.html" class="">ES6 Module Imports</a>
-</li>
-          <li class="sidebar-item">
-  <a href="../module-tests/module-import-2.html" class="">ES6 Recursive Imports</a>
+  <a href="../features/dot.html" class="">Graphviz support</a>
 </li>
         </ul>
       </div>
     </li>
   </ul>
-        </ul>
-      </div>
-    </li>
-  </ul>
-        </ul>
-      </div>
-    </li>
-  </ul>
-      <ul class="list-unstyled sidebar-section depth1">
-    <li class="">
-        <div class="me-auto ">
-            <a class="sidebar-section-item d-inline-flex text-start w-100 " data-bs-toggle="collapse" data-bs-target="#tests-collapse" aria-expanded="true">
-              <div class="me-auto  sidebar-section-item">Tests</div>
-            <div><i class="bi bi-chevron-right ms-2 "></i></div>
-            </a>
-        </div>
-      <div class="collapse  show" id="tests-collapse">
-        <ul class="list-unstyled sidebar-item-contents">
-          <li class="sidebar-item">
-  <a href="../tests/index.html" class="">Quarto Observable Test Index</a>
-</li>
         </ul>
       </div>
     </li>
@@ -223,14 +192,14 @@
   <div id="quarto-toc-sidebar" class="col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
 <h2 id="toc-title">On this page</h2>
 <ul>
-<li><a href="#root-relative-fileattachments" class="nav-link active" data-scroll-target="#root-relative-fileattachments">Root-relative FileAttachments</a></li>
-<li><a href="#extras" class="nav-link" data-scroll-target="#extras">Extras</a></li>
+<li><a href="#which-files-are-included" class="nav-link active" data-scroll-target="#which-files-are-included">Which files are included?</a></li>
+<li><a href="#how-are-paths-resolved" class="nav-link" data-scroll-target="#how-are-paths-resolved">How are paths resolved?</a></li>
 </ul>
 </nav></div>
   <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 px-lg-4">
 <main>
 <header id="title-block-header">
-<div class="quarto-title-block d-none d-lg-block"><h1 class="title d-none d-lg-block">Files and File Attachments</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div>
+<div class="quarto-title-block d-none d-lg-block"><div><h1 class="title d-none d-lg-block">Files and File Attachments</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </header>
 
 <p>OJS provides you with a ton of flexibility and options for interactivity on the browser side. But what if you want to interact with files in the file system? This is very common when you have some R or Python code that generates some data to be visualized. Quarto OJS provides <code>FileAttachment</code> objects, or simply “file attachments”.</p>
@@ -240,33 +209,44 @@
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(penguins, <span class="st">"penguins.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We now can reference this file directly in a file attachment:</p>
+<p>We now can reference this file directly in <a href="https://observablehq.com/@observablehq/file-attachments">file attachments</a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"penguins.csv"</span>)<span class="op">.</span><span class="fu">csv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="ojs-cell-1">
+<div class="sourceCode" id="cb2"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"penguins.csv"</span>)<span class="op">.</span><span class="fu">csv</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>avg <span class="op">=</span> {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vs <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(s <span class="kw">=&gt;</span> s<span class="op">.</span><span class="at">bill_length_mm</span>)<span class="op">.</span><span class="fu">filter</span>(s <span class="kw">=&gt;</span> s <span class="op">!==</span> <span class="st">"NA"</span>)<span class="op">.</span><span class="fu">map</span>(<span class="bu">Number</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  vs<span class="op">.</span><span class="fu">forEach</span>(v <span class="kw">=&gt;</span> n <span class="op">+=</span> v)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> n <span class="op">/</span> vs<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-1">
 
 </div>
 </div>
 </div>
-<p>Quarto tries to figure out which files you want to use as attachments by inspecting OJS source code for <code>FileAttachment(...)</code> literals. If you have arbitrary logic to decide on which filename to load, you will need to explicitly add those files as resources in your project’s YAML frontmatter (or in some of its pages).</p>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>avg <span class="op">=</span> {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vs <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(s <span class="kw">=&gt;</span> s<span class="op">.</span><span class="at">bill_length_mm</span>)<span class="op">.</span><span class="fu">filter</span>(s <span class="kw">=&gt;</span> s <span class="op">!==</span> <span class="st">"NA"</span>)<span class="op">.</span><span class="fu">map</span>(<span class="bu">Number</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  vs<span class="op">.</span><span class="fu">forEach</span>(v <span class="kw">=&gt;</span> n <span class="op">+=</span> v)<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> n <span class="op">/</span> vs<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="ojs-cell-2">
+<div class="cell-output-display hidden">
+<div>
+<div id="ojs-cell-1-2">
 
+</div>
 </div>
 </div>
 </div>
 <p>The average bill length of penguins in the dataset is <span><span id="ojs-element-id-1"></span>mm.</span></p>
-<section id="root-relative-fileattachments" class="level3">
-<h3 class="anchored" data-anchor-id="root-relative-fileattachments">Root-relative FileAttachments</h3>
-<p>Quarto is careful to convert all local URL paths to “root-relative” paths, so that the entire Quarto project you build works, regardless of how deep in a web server path hierarchy you serve its content from. In other words, if your markdown includes an image URL <code>/imgs/asset-1.jpg</code>, Quarto will convert that URL to a relative one. In Quarto OJS, FileAttachments work the same way. For example, here we check that <code>penguins.csv</code> and <code>/features/penguins.csv</code> indeed seem to be the same file:</p>
+<section id="which-files-are-included" class="level3">
+<h3 class="anchored" data-anchor-id="which-files-are-included">Which files are included?</h3>
+<p>When you render a Quarto document, Quarto inspects OJS chunks and tries to figure out which files the document intends to use as attachment to automatically include them in the build (typically in the <code>_site</code> directory). It does so by inspecting OJS source code, looking for <code>FileAttachment(...)</code> calls with string literals as parameters.</p>
+<p>This works well in simple cases, but more complex code might have arbitrary logic to decide on which filename to load. In that case, it will be necessary to explicitly add those files as resources in the YAML frontmatter (either for the project itself or some of its pages). Here’s an example:</p>
+<pre><code>title: "This is the title of some page with attachments"
+resources:
+  - penguins.csv
+  - data/*.csv</code></pre>
+<p>(FIXME: Apparently <a href="https://observablehq.com/@observablehq/file-attachments">file attachments only work with string literals anyway!</a>)</p>
+</section>
+<section id="how-are-paths-resolved" class="level3">
+<h3 class="anchored" data-anchor-id="how-are-paths-resolved">How are paths resolved?</h3>
+<p>Quarto is careful to convert all local URL paths to “root-relative” paths, so that the entire Quarto project you build works, regardless of how deep in a web server path hierarchy you serve its content from. In other words, if your markdown includes an image URL <code>/imgs/asset-1.jpg</code>, Quarto will convert that URL to a relative one. In Quarto OJS, FileAttachments work the same way. For example, here we check that <code>penguins.csv</code> and <code>/features/penguins.csv</code> indeed seem to be the same file, by looking at random rows of the file and verifying that they have the same bill lengths:</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/features/penguins.csv"</span>)<span class="op">.</span><span class="fu">csv</span>()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{</span>
@@ -275,109 +255,118 @@
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<div id="ojs-cell-3-1">
+<div id="ojs-cell-2-1">
 
 </div>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<div id="ojs-cell-3-2">
+<div id="ojs-cell-2-2">
 
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="extras" class="level3">
-<h3 class="anchored" data-anchor-id="extras">Extras</h3>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="sourceCode js cell-code code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">fmt</span>(n)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">let</span> s <span class="op">=</span> <span class="bu">String</span>(<span class="op">~~</span>n)<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> s<span class="op">.</span><span class="fu">substr</span>(s<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="ojs-cell-4">
+<div class="cell-output-display hidden">
+<div id="ojs-cell-3">
 
 </div>
 </div>
 </div>
 <!-- -->
 <div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title anchored" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Files and File Attachments"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>OJS provides you with a ton of flexibility and options for</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>interactivity on the browser side.  But what if you want to interact</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>with files in the file system? This is very common when you have some</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>R or Python code that generates some data to be visualized.</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Quarto OJS provides <span class="in">`FileAttachment`</span> objects, or simply "file attachments".</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>File attachments work similarly to how they do in Observable. You include them as</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>a resource in your quarto document or project, and then access them</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>with <span class="in">`FileAttachment`</span>. Here we're using Allison Horst's excellent</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">palmer penguins dataset</span><span class="co">](penguins.csv)</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>(<span class="co">[</span><span class="ot">source</span><span class="co">](https://allisonhorst.github.io/palmerpenguins/)</span>):</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># This R code is run by Quarto, just like it would in (say) Rmarkdown.</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(penguins, <span class="st">"penguins.csv"</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>We now can reference this file directly in a file attachment:</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="in">data = FileAttachment("penguins.csv").csv()</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>Quarto tries to figure out which files you want to use as attachments</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>by inspecting OJS source code for <span class="in">`FileAttachment(...)`</span> literals. If</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>you have arbitrary logic to decide on which filename to load, you will</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>need to explicitly add those files as resources in your project's</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>YAML frontmatter (or in some of its pages).</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="in">avg = {</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="in">  const vs = data.map(s =&gt; s.bill_length_mm).filter(s =&gt; s !== "NA").map(Number);</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="in">  let n = 0;</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="in">  vs.forEach(v =&gt; n += v);</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="in">  return n / vs.length;</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>The average bill length of penguins in the dataset is ${fmt(avg)}mm.</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Root-relative FileAttachments</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>Quarto is careful to convert all local URL paths to "root-relative"</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>paths, so that the entire Quarto project you build works, regardless</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>of how deep in a web server path hierarchy you serve its content from.</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>In other words, if your markdown includes an image URL</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="in">`/imgs/asset-1.jpg`</span>, Quarto will convert that URL to a relative</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>one. In Quarto OJS, FileAttachments work the same way. For example,</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>here we check that <span class="in">`penguins.csv`</span> and <span class="in">`/features/penguins.csv`</span> indeed</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>seem to be the same file:</span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="in">data2 = FileAttachment("/features/penguins.csv").csv()</span></span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="in">{</span></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="in">    let randomRow = (now &amp; 65535) % data.length;</span></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="in">    return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;</span></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extras</span></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="in">function fmt(n)</span></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="in">{</span></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="in">   let s = String(~~n);</span></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="in">   return s.substr(s.length - 2);</span></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Files and File Attachments"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>OJS provides you with a ton of flexibility and options for</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>interactivity on the browser side.  But what if you want to interact</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>with files in the file system? This is very common when you have some</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>R or Python code that generates some data to be visualized.</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>Quarto OJS provides <span class="in">`FileAttachment`</span> objects, or simply "file attachments".</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>File attachments work similarly to how they do in Observable. You include them as</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>a resource in your quarto document or project, and then access them</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>with <span class="in">`FileAttachment`</span>. Here we're using Allison Horst's excellent</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">palmer penguins dataset</span><span class="co">](penguins.csv)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>(<span class="co">[</span><span class="ot">source</span><span class="co">](https://allisonhorst.github.io/palmerpenguins/)</span>):</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># This R code is run by Quarto, just like it would in (say) Rmarkdown.</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(penguins, <span class="st">"penguins.csv"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>We now can reference this file directly in <span class="co">[</span><span class="ot">file attachments</span><span class="co">](https://observablehq.com/@observablehq/file-attachments)</span>.</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="in">//| output: false</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="in">data = FileAttachment("penguins.csv").csv()</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="in">avg = {</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="in">  const vs = data.map(s =&gt; s.bill_length_mm).filter(s =&gt; s !== "NA").map(Number);</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">  let n = 0;</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="in">  vs.forEach(v =&gt; n += v);</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="in">  return n / vs.length;</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>The average bill length of penguins in the dataset is ${fmt(avg)}mm.</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### Which files are included?</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>When you render a Quarto document, Quarto inspects OJS chunks and</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>tries to figure out which files the document intends to use as</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>attachment to automatically include them in the build (typically in</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>the <span class="in">`_site`</span> directory). It does so by inspecting OJS source code,</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>looking for <span class="in">`FileAttachment(...)`</span> calls with string literals as parameters. </span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>This works well in simple cases, but more complex code might have</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>arbitrary logic to decide on which filename to load. In that case, it</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>will be necessary to explicitly add those files as resources in the</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>YAML frontmatter (either for the project itself or some of its</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>pages). Here's an example:</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="in">title: "This is the title of some page with attachments"</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="in">resources:</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="in">  - penguins.csv</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="in">  - data/*.csv</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>(FIXME: Apparently <span class="co">[</span><span class="ot">file attachments only work with string literals anyway!</span><span class="co">](https://observablehq.com/@observablehq/file-attachments)</span>)</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### How are paths resolved?</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>Quarto is careful to convert all local URL paths to "root-relative"</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>paths, so that the entire Quarto project you build works, regardless</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>of how deep in a web server path hierarchy you serve its content from.</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>In other words, if your markdown includes an image URL</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="in">`/imgs/asset-1.jpg`</span>, Quarto will convert that URL to a relative</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>one. In Quarto OJS, FileAttachments work the same way. For example,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>here we check that <span class="in">`penguins.csv`</span> and <span class="in">`/features/penguins.csv`</span> indeed</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>seem to be the same file, by looking at random rows of the file and</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>verifying that they have the same bill lengths:</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="in">data2 = FileAttachment("/features/penguins.csv").csv()</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="in">{</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="in">    let randomRow = (now &amp; 65535) % data.length;</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="in">    return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="in">//| echo: false</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="in">//| output: false</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="in">function fmt(n)</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="in">{</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a><span class="in">   let s = String(~~n);</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="in">   return s.substr(s.length - 2);</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 <!-- -->
@@ -398,7 +387,7 @@
 </div> <!-- /row -->
 </div> <!-- /container fluid -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"data = FileAttachment(\"penguins.csv\").csv()"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"avg = {\n  const vs = data.map(s => s.bill_length_mm).filter(s => s !== \"NA\").map(Number);\n  let n = 0;\n  vs.forEach(v => n += v);\n  return n / vs.length;\n}"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"data2 = FileAttachment(\"/features/penguins.csv\").csv()\n{\n    let randomRow = (now & 65535) % data.length;\n    return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;\n}"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"function fmt(n)\n{\n   let s = String(~~n);\n   return s.substr(s.length - 2);\n}"}]}
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"data = FileAttachment(\"penguins.csv\").csv()\navg = {\n  const vs = data.map(s => s.bill_length_mm).filter(s => s !== \"NA\").map(Number);\n  let n = 0;\n  vs.forEach(v => n += v);\n  return n / vs.length;\n}"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"data2 = FileAttachment(\"/features/penguins.csv\").csv()\n{\n    let randomRow = (now & 65535) % data.length;\n    return data2[randomRow].bill_length_mm === data[randomRow].bill_length_mm;\n}"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"function fmt(n)\n{\n   let s = String(~~n);\n   return s.substr(s.length - 2);\n}"}]}
 </script>
 <script type="module">
 window._ojs.paths.runtimeToDoc = "../../features";
